@@ -46,14 +46,14 @@
        <layout class="QVBoxLayout" name="matplotlibVLayout"/>
       </item>
       <item row="4" column="0" colspan="3">
-       <widget class="QSlider" name="horizontalSlider">
+       <widget class="QSlider" name="tangeanteHorizontalSlider">
         <property name="orientation">
          <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="xMaximumLabel">
         <property name="text">
          <string>x maximum</string>
         </property>
@@ -73,20 +73,20 @@
        </spacer>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="titreLabel">
+       <widget class="QLabel" name="xMinimumLabel">
         <property name="text">
          <string>x minimum</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+       <widget class="QDoubleSpinBox" name="xMinimumDoubleSpinBox"/>
       </item>
       <item row="1" column="1" colspan="4">
        <widget class="QLineEdit" name="fonctionLineEdit"/>
       </item>
       <item row="2" column="4">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+       <widget class="QDoubleSpinBox" name="xMaximumDoubleSpinBox"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="fonctionLabel">
@@ -102,30 +102,30 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="1" column="2">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="tauxVariationLabel">
            <property name="text">
             <string>Taux Variation</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="pointTangeancelineEdit"/>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="fonctionDeriveeLabel">
            <property name="text">
             <string>Fonction Dérivée</string>
            </property>
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="tauxVariationLineEdit"/>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="fonctionDeriveeLineEdit"/>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="pointTangeanceLabel_3">
            <property name="text">
             <string>Point tangeance</string>
            </property>
