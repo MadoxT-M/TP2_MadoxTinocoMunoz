@@ -1,0 +1,58 @@
+from PyQt6.QtCore import QObject, pyqtSignal
+from PyQt6.QtGui import QColor
+import sympy as sp
+import numpy as np
+
+
+class FonctionModel(QObject):
+    fonctionchanged = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+        self.__fonction: None = None
+        self.__couleur: QColor
+        self.__xmin: float = 0
+        self.__xmax: float= 0
+        self.__showgrille: bool = False
+
+    @property
+    def fonction(self):
+        x = sp.symbols('x')
+        y = sp.sympify(self.__fonction)
+
+        xmin = self.__xmin
+        xmax = self.__xmax
+
+        y_numeric = sp.lambdify(x, y, 'numpy')
+        x_values = np.linspace(-10, 10, 500)
+        y_values = y_numeric(x_values)
+        return y_values
+
+    @fonction.setter
+    def fonction(self, value):
+        self.__fonction = value
+        self.fonctionchanged.emit()
+
+    @property
+    def xmin(self):
+        return self.__xmin
+
+    @xmin.setter
+    def xmin(self, value):
+        self.__xmin = value
+
+    @property
+    def xmax(self):
+        return self.__xmax
+
+    @xmax.setter
+    def xmax(self, value):
+        self.__xmax = value
+
+    @property
+    def couleur(self):
+        return self.__couleur
+
+    @couleur.setter
+    def couleur(self, value):
+        self.__couleur = value
