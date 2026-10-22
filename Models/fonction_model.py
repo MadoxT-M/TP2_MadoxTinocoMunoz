@@ -6,13 +6,14 @@ import numpy as np
 
 class FonctionModel(QObject):
     fonctionchanged = pyqtSignal()
+    xminchanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.__fonction: None = None
         self.__derivee: None = None
         self.__couleur: QColor
-        self.__xmin: float = 0
+        self.__xmin: float= 0
         self.__xmax: float= 0
         self.__showgrille: bool = False
 
@@ -25,9 +26,9 @@ class FonctionModel(QObject):
         xmax = self.__xmax
 
         y_numeric = sp.lambdify(x, y, 'numpy')
-        x_values = np.linspace(0, 10, 500)
+        x_values = np.linspace(xmin, 10, 500)
         y_values = y_numeric(x_values)
-        return y_values
+        return  y_values
 
     @fonction.setter
     def fonction(self, value):
@@ -39,10 +40,13 @@ class FonctionModel(QObject):
         x = sp.symbols('x')
         y = sp.sympify(self.__fonction)
 
+        xmin = self.__xmin
+        xmax = self.__xmax
+
         y_derivee_symbolique = sp.diff(y,x)
         derivee_numeric = sp.lambdify(x, y_derivee_symbolique, 'numpy')
 
-        x_values = np.linspace(0, 10, 500)
+        x_values = np.linspace(xmin, 10, 500)
         y_derivee_values = derivee_numeric(x_values)
 
         return y_derivee_values
@@ -57,7 +61,9 @@ class FonctionModel(QObject):
 
     @xmin.setter
     def xmin(self, value):
-        self.__xmin = value
+        if self.__xmin != value:
+            self.__xmin = value
+            self.fonctionchanged.emit()
 
     @property
     def xmax(self):
