@@ -10,6 +10,7 @@ class FonctionModel(QObject):
     def __init__(self):
         super().__init__()
         self.__fonction: None = None
+        self.__derivee: None = None
         self.__couleur: QColor
         self.__xmin: float = 0
         self.__xmax: float= 0
@@ -24,7 +25,7 @@ class FonctionModel(QObject):
         xmax = self.__xmax
 
         y_numeric = sp.lambdify(x, y, 'numpy')
-        x_values = np.linspace(-10, 10, 500)
+        x_values = np.linspace(0, 10, 500)
         y_values = y_numeric(x_values)
         return y_values
 
@@ -32,6 +33,23 @@ class FonctionModel(QObject):
     def fonction(self, value):
         self.__fonction = value
         self.fonctionchanged.emit()
+
+    @property
+    def derivee(self):
+        x = sp.symbols('x')
+        y = sp.sympify(self.__fonction)
+
+        y_derivee_symbolique = sp.diff(y,x)
+        derivee_numeric = sp.lambdify(x, y_derivee_symbolique, 'numpy')
+
+        x_values = np.linspace(0, 10, 500)
+        y_derivee_values = derivee_numeric(x_values)
+
+        return y_derivee_values
+
+    @derivee.setter
+    def derivee(self, value):
+        self.__derivee = value
 
     @property
     def xmin(self):
