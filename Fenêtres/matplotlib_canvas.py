@@ -1,7 +1,6 @@
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib import pyplot as plt
-from matplotlib.figure import Figure
-from Modèles.fonction_model import FonctionModel
+from Models.fonction_model import FonctionModel
 
 class MPLCanvas(FigureCanvasQTAgg):
     __model = FonctionModel
