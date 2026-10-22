@@ -6,7 +6,6 @@ import numpy as np
 
 class FonctionModel(QObject):
     fonctionchanged = pyqtSignal()
-    xminchanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -14,7 +13,7 @@ class FonctionModel(QObject):
         self.__derivee: None = None
         self.__couleur: QColor
         self.__xmin: float= 0
-        self.__xmax: float= 0
+        self.__xmax: float= 10
         self.__showgrille: bool = False
 
     @property
@@ -71,7 +70,10 @@ class FonctionModel(QObject):
 
     @xmax.setter
     def xmax(self, value):
-        self.__xmax = value
+        if self.__xmin != value:
+            self.__xmin = value
+            self.fonctionchanged.emit()
+
 
     @property
     def couleur(self):
