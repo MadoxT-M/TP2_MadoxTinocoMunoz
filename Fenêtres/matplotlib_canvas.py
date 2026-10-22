@@ -1,3 +1,4 @@
+import numpy as np
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib import pyplot as plt
 from Models.fonction_model import FonctionModel
@@ -16,9 +17,11 @@ class MPLCanvas(FigureCanvasQTAgg):
         fonction = self.__model.fonction
         derivee = self.__model.derivee
 
+        x_values = np.linspace(self.__model.xmin,10, 500)
+
         self.__ax[0].clear()
-        self.__ax[0].plot(fonction)
+        self.__ax[0].plot(x_values, fonction)
 
         self.__ax[1].clear()
-        self.__ax[1].plot(derivee)
+        self.__ax[1].plot(x_values, derivee)
         self.draw()
