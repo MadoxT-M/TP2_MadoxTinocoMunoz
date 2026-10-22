@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, Q
 from PyQt6.uic import loadUi
 
 from Fenêtres.matplotlib_canvas import MPLCanvas
-from Modèles.fonction_model import FonctionModel
+from Models.fonction_model import FonctionModel
 
 
 class MainFenentre(QMainWindow):
