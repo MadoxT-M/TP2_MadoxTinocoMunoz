@@ -16,12 +16,15 @@ class MPLCanvas(FigureCanvasQTAgg):
     def dessiner(self):
         fonction = self.__model.fonction
         derivee = self.__model.derivee
+        xmin = self.__model.xmin
+        xmax = self.__model.xmax
 
-        x_values = np.linspace(self.__model.xmin,10, 500)
 
         self.__ax[0].clear()
-        self.__ax[0].plot(x_values, fonction)
+        self.__ax[0].plot(fonction)
+        #self.__ax[0].set_xlim(xmin, xmax)
 
         self.__ax[1].clear()
-        self.__ax[1].plot(x_values, derivee)
+        self.__ax[1].plot(derivee)
+        #self.__ax[1].set_xlim(xmin, xmax)
         self.draw()
