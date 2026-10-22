@@ -14,7 +14,11 @@ class MPLCanvas(FigureCanvasQTAgg):
 
     def dessiner(self):
         fonction = self.__model.fonction
+        derivee = self.__model.derivee
 
         self.__ax[0].clear()
         self.__ax[0].plot(fonction)
+
+        self.__ax[1].clear()
+        self.__ax[1].plot(derivee)
         self.draw()
