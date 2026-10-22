@@ -23,6 +23,11 @@ class MainFenentre(QMainWindow):
         self.matplotlibVLayout.addWidget(self.__canvas)
         self.fonctionLineEdit.editingFinished.connect(self.__fonction_modifiee)
         self.fonctionLineEdit.editingFinished.connect(self.__fonction_modifiee)
+        self.xMinimumDoubleSpinBox.editingFinished.connect(self.__x_minimum_modifiee)
 
     def __fonction_modifiee(self):
         self.__model.fonction = self.fonctionLineEdit.text()
+
+    def __x_minimum_modifiee(self):
+        valeur_str = self.xMinimumDoubleSpinBox.value()
+        self.__model.xmin = float(valeur_str)
