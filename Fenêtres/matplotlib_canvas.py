@@ -53,10 +53,9 @@ class MPLCanvas(FigureCanvasQTAgg):
         # 2. Calculer et mettre à jour la tangente
         largeur = (self.__model.xmax - self.__model.xmin) / 10.0
         if largeur == 0: largeur = 1.0
-
-        x_tangeante_vals = np.array([x_curseur - largeur, x_curseur + largeur])
-        y_tangeante_vals = model * (x_tangeante_vals - x_curseur) + y_curseur
-        self.tangente_line.set_data(x_tangeante_vals, y_tangeante_vals)
+        x_tangente_vals = np.array([x_curseur - largeur, x_curseur + largeur])
+        y_tangente_vals = model * (x_tangente_vals - x_curseur) + y_curseur
+        self.tangente_line.set_data(x_tangente_vals, y_tangente_vals)
 
         # 3. Mettre à jour le point sur le graphique de la dérivée
         self.point_deriv.set_data([x_curseur], [model])
