@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider
+from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel
 from PyQt6.uic import loadUi
 
 from Fenêtres.matplotlib_canvas import MPLCanvas
@@ -12,6 +12,7 @@ class MainFenentre(QMainWindow):
     xMaximumDoubleSpinBox: QDoubleSpinBox
     matplotlibVLayout:QVBoxLayout
     tangeanteHorizontalSlider : QSlider
+    fonctionDeriveeLabel2:  QLabel
 
     __model = FonctionModel
 
@@ -31,6 +32,7 @@ class MainFenentre(QMainWindow):
         self.xMinimumDoubleSpinBox.editingFinished.connect(self.__x_minimum_modifiee)
         self.xMaximumDoubleSpinBox.editingFinished.connect(self.__x_maximum_modifiee)
         self.__model.fonctionchanged.connect(self.__canvas.dessiner)
+        self.__model.fonctionchanged.connect(self.__mettre_derivee_label)
         self.tangeanteHorizontalSlider.setMinimum(0)
         self.tangeanteHorizontalSlider.setMaximum(100)
         self.tangeanteHorizontalSlider.setValue(50)
@@ -46,6 +48,10 @@ class MainFenentre(QMainWindow):
     def __x_maximum_modifiee(self):
         valeur_str = self.xMaximumDoubleSpinBox.value()
         self.__model.xmax = float(valeur_str)
+
+    def __mettre_derivee_label(self):
+        texte_derivee = self.__model.derivee_str
+        self.fonctionDeriveeLabel2.setText(texte_derivee)
 
     def __slider_modifie(self, valeur_slider):
         xmin = self.__model.xmin
