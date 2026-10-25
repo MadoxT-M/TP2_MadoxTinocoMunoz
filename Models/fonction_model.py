@@ -92,22 +92,12 @@ class FonctionModel(QObject):
             self.__xmax = value
             self.fonctionchanged.emit()
 
-
-    @property
-    def couleur(self):
-        return self.__couleur
-
-    @couleur.setter
-    def couleur(self, value):
-        self.__couleur = value
-
     @property
     def x_curseur(self):
         return self.__x_curseur
 
     @x_curseur.setter
     def x_curseur(self, value):
-        # S'assurer que le curseur reste bien entre xmin et xmax
         val_limites = max(self.__xmin, min(value, self.__xmax))
         if self.__x_curseur != val_limites:
             self.__x_curseur = val_limites

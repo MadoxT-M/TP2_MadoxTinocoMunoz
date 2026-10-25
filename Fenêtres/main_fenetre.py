@@ -13,6 +13,7 @@ class MainFenentre(QMainWindow):
     matplotlibVLayout:QVBoxLayout
     tangeanteHorizontalSlider : QSlider
     fonctionDeriveeLabel2:  QLabel
+    pointTangenceLabel2 : QLabel
 
     __model = FonctionModel
 
@@ -37,6 +38,7 @@ class MainFenentre(QMainWindow):
         self.tangeanteHorizontalSlider.setMaximum(100)
         self.tangeanteHorizontalSlider.setValue(50)
         self.tangeanteHorizontalSlider.valueChanged.connect(self.__slider_modifie)
+        self.__model.curseurchanged.connect(self.mettre_affichage_tangente)
 
     def __fonction_modifiee(self):
         self.__model.fonction = self.fonctionLineEdit.text()
@@ -58,3 +60,9 @@ class MainFenentre(QMainWindow):
         xmax = self.__model.xmax
         x_valeur = xmin + (valeur_slider / 100.0) * (xmax - xmin)
         self.__model.x_curseur = x_valeur
+
+    def mettre_affichage_tangente(self):
+        x = self.__model.x_curseur
+        y = self.__model.eval_fonction(x)
+        texte = f"x = {x:.2f}, y = {y:.2f}"
+        self.pointTangenceLabel2.setText(texte)
