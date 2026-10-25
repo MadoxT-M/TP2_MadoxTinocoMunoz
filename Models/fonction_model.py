@@ -25,9 +25,9 @@ class FonctionModel(QObject):
         xmax = self.__xmax
 
         y_numeric = sp.lambdify(x, y, 'numpy')
-        x_values = np.linspace(xmin, 10, 500)
+        x_values = np.linspace(xmin, xmax, 500)
         y_values = y_numeric(x_values)
-        return  y_values
+        return x_values, y_values
 
     @fonction.setter
     def fonction(self, value):
@@ -41,14 +41,16 @@ class FonctionModel(QObject):
 
         xmin = self.__xmin
         xmax = self.__xmax
+        if xmin < 0:
+            xmin = 0
 
         y_derivee_symbolique = sp.diff(y,x)
         derivee_numeric = sp.lambdify(x, y_derivee_symbolique, 'numpy')
 
-        x_values = np.linspace(xmin, 10, 500)
+        x_values = np.linspace(xmin, xmax, 500)
         y_derivee_values = derivee_numeric(x_values)
 
-        return y_derivee_values
+        return x_values, y_derivee_values
 
     @derivee.setter
     def derivee(self, value):
@@ -70,8 +72,8 @@ class FonctionModel(QObject):
 
     @xmax.setter
     def xmax(self, value):
-        if self.__xmin != value:
-            self.__xmin = value
+        if self.__xmax != value:
+            self.__xmax = value
             self.fonctionchanged.emit()
 
 
