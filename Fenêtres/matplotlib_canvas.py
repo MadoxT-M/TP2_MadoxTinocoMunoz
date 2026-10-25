@@ -14,17 +14,17 @@ class MPLCanvas(FigureCanvasQTAgg):
         self.__model.fonctionchanged.connect(self.dessiner)
 
     def dessiner(self):
-        fonction = self.__model.fonction
-        derivee = self.__model.derivee
-        xmin = self.__model.xmin
-        xmax = self.__model.xmax
+            x_fonction, y_fonction = self.__model.fonction
+            x_derivee, y_derivee = self.__model.derivee
 
+            self.__ax[0].clear()
+            if len(x_fonction) > 0:
+                self.__ax[0].plot(x_fonction, y_fonction)
+            self.__ax[0].set_title("Fonction")
 
-        self.__ax[0].clear()
-        self.__ax[0].plot(fonction)
-        #self.__ax[0].set_xlim(xmin, xmax)
+            self.__ax[1].clear()
+            if len(x_derivee) > 0:
+                self.__ax[1].plot(x_derivee, y_derivee, color='orange')
+            self.__ax[1].set_title("Dérivée")
 
-        self.__ax[1].clear()
-        self.__ax[1].plot(derivee)
-        #self.__ax[1].set_xlim(xmin, xmax)
-        self.draw()
+            self.draw()
