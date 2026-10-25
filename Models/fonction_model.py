@@ -6,18 +6,22 @@ import numpy as np
 
 class FonctionModel(QObject):
     fonctionchanged = pyqtSignal()
+    curseurchanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
-        self.__fonction: None = None
-        self.__derivee: None = None
+        self.__fonction: str = ""
+        self.__derivee:None = None
         self.__couleur: QColor
         self.__xmin: float= 0
         self.__xmax: float= 10
+        self.__x_curseur: float = 5.0
         self.__showgrille: bool = False
 
     @property
     def fonction(self):
+        if not self.__fonction:
+            return np.array([]), np.array([])
         x = sp.symbols('x')
         y = sp.sympify(self.__fonction)
 
@@ -36,6 +40,8 @@ class FonctionModel(QObject):
 
     @property
     def derivee(self):
+        if not self.__fonction:
+            return np.array([]), np.array([])
         x = sp.symbols('x')
         y = sp.sympify(self.__fonction)
 
@@ -84,3 +90,30 @@ class FonctionModel(QObject):
     @couleur.setter
     def couleur(self, value):
         self.__couleur = value
+
+    @property
+    def x_curseur(self):
+        return self.__x_curseur
+
+    @x_curseur.setter
+    def x_curseur(self, value):
+        # S'assurer que le curseur reste bien entre xmin et xmax
+        val_limites = max(self.__xmin, min(value, self.__xmax))
+        if self.__x_curseur != val_limites:
+            self.__x_curseur = val_limites
+            self.curseurchanged.emit()
+
+    def eval_fonction(self, x_val):
+        if not self.__fonction:
+            return 0.0
+        x = sp.symbols('x')
+        y = sp.sympify(self.__fonction)
+        return float(sp.lambdify(x, y, 'numpy')(x_val))
+
+    def eval_derivee(self, x_val):
+        if not self.__fonction:
+            return 0.0
+        x = sp.symbols('x')
+        y = sp.sympify(self.__fonction)
+        y_prime = sp.diff(y, x)
+        return float(sp.lambdify(x, y_prime, 'numpy')(x_val))
