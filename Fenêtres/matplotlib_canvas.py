@@ -39,6 +39,8 @@ class MPLCanvas(FigureCanvasQTAgg):
             self.__ax[1].plot(x_derivee, y_derivee, label="Dérivée", color='blue')
 
         self.point_deriv, = self.__ax[1].plot([], [], 'bo')
+
+        self.__fig.tight_layout()
         self.draw()
         self.mettre_a_jour_curseur()
 
