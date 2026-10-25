@@ -64,6 +64,15 @@ class FonctionModel(QObject):
         self.__derivee = value
 
     @property
+    def derivee_str(self) -> str:
+        if not self.__fonction:
+            return ""
+        x = sp.symbols('x')
+        y = sp.sympify(self.__fonction)
+        y_prime = sp.diff(y, x)
+        return str(y_prime)
+
+    @property
     def xmin(self):
         return self.__xmin
 
