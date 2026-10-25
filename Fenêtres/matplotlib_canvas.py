@@ -41,6 +41,7 @@ class MPLCanvas(FigureCanvasQTAgg):
         self.point_deriv, = self.__ax[1].plot([], [], 'bo')
 
         self.__fig.tight_layout()
+        self.__fig.subplots_adjust(top=0.85, wspace=0.3)
         self.draw()
         self.mettre_a_jour_curseur()
 
