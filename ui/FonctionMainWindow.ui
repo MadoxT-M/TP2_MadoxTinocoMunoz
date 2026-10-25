@@ -110,7 +110,7 @@
         <property name="title">
          <string>GroupBox</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="0,2,0,2">
+        <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="0,0,0,0">
          <item row="1" column="2">
           <widget class="QLabel" name="tauxVariationLabel">
            <property name="text">
@@ -119,10 +119,10 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="pointTangeancelineEdit"/>
+          <widget class="QLabel" name="pointTangenceLabel2"/>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="fonctionDeriveeLabel">
+          <widget class="QLabel" name="fonctionDeriveeLabel2">
            <property name="text">
             <string>Fonction Dérivée</string>
            </property>
@@ -132,7 +132,7 @@
           <widget class="QLineEdit" name="tauxVariationLineEdit"/>
          </item>
          <item row="0" column="1">
-          <widget class="QLabel" name="fonctionDeriveeLabel2"/>
+          <widget class="QLabel" name="fonctionDeriveeLabel"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="pointTangeanceLabel_3">
