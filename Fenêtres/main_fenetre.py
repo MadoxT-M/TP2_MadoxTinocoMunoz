@@ -18,6 +18,11 @@ class MainFenentre(QMainWindow):
     def __init__(self):
         super().__init__()
         loadUi("ui/FonctionMainWindow.ui",self)
+        self.xMinimumDoubleSpinBox.setMinimum(-9999999)
+        self.xMinimumDoubleSpinBox.setMaximum(99999999)
+        self.xMaximumDoubleSpinBox.setMinimum(-9999999)
+        self.xMaximumDoubleSpinBox.setMaximum(99999999)
+        self.xMaximumDoubleSpinBox.setValue(10.0)
 
         self.__model = FonctionModel()
         self.__canvas = MPLCanvas(self.__model)
