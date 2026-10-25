@@ -12,6 +12,7 @@ class FonctionModel(QObject):
         super().__init__()
         self.__fonction: str = ""
         self.__derivee:None = None
+        self.__derivee_str:None = None
         self.__couleur: QColor
         self.__xmin: float= 0
         self.__xmax: float= 10

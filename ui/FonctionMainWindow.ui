@@ -122,7 +122,7 @@
           <widget class="QLineEdit" name="tauxVariationLineEdit"/>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="fonctionDeriveeLineEdit"/>
+          <widget class="QLabel" name="fonctionDeriveeLabel"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="pointTangeanceLabel_3">
