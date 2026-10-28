@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>376</width>
-    <height>578</height>
+    <width>615</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
        </spacer>
       </item>
       <item row="3" column="0" colspan="5">
-       <layout class="QVBoxLayout" name="matplotlibVLayout" stretch="">
+       <layout class="QVBoxLayout" name="matplotlibVLayout">
         <property name="spacing">
          <number>12</number>
         </property>
@@ -153,7 +153,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>376</width>
+     <width>615</width>
      <height>33</height>
     </rect>
    </property>
