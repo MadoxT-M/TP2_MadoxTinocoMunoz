@@ -25,21 +25,21 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="enregristrerPushButton">
         <property name="text">
          <string>Enregistrer</string>
         </property>
        </widget>
       </item>
       <item row="4" column="2">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="ajouterPushButton">
         <property name="text">
          <string>Ajouter</string>
         </property>
        </widget>
       </item>
       <item row="4" column="3">
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="supprimerPushButton">
         <property name="text">
          <string>Supprimer</string>
         </property>
@@ -66,10 +66,10 @@
        </spacer>
       </item>
       <item row="3" column="1" colspan="3">
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="ajouterFonctionLineEdit"/>
       </item>
       <item row="2" column="0" colspan="4">
-       <widget class="QListView" name="listView"/>
+       <widget class="QListView" name="fonctionListView"/>
       </item>
      </layout>
     </item>
