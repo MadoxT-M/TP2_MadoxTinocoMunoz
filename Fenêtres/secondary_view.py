@@ -1,3 +1,4 @@
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QDockWidget, QPushButton, QLineEdit, QListView
 from PyQt6.uic import loadUi
 
@@ -6,6 +7,7 @@ from Models.liste_model import ListModel
 
 
 class SecondaryFenetre(QDockWidget):
+    fonctionsEnregistrees = pyqtSignal(list)
 
     supprimerPushButton: QPushButton
     ajouterPushButton: QPushButton
@@ -22,6 +24,7 @@ class SecondaryFenetre(QDockWidget):
         self.fonctionListView.setModel(self.__model)
         self.ajouterPushButton.clicked.connect(self.__ajouter_fonction)
         self.supprimerPushButton.clicked.connect(self.__supprimer_fonction)
+        self.enregistrerPushButton.clicked.connect(self.__enregistrer_fonction)
 
     @staticmethod
     def fonctions_initiales(self):
@@ -37,4 +40,7 @@ class SecondaryFenetre(QDockWidget):
             index_selectionne = self.fonctionListView.currentIndex()
             if index_selectionne.isValid():
                 self.__model.remove_item(index_selectionne.row())
-        
+
+    def __enregistrer_fonction(self):
+        fonctions = self.__model.get_items()
+        self.fonctionsEnregistrees.emit(fonctions)

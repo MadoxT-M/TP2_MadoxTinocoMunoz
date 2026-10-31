@@ -5,8 +5,6 @@ from Models.fonction_model import FonctionModel
 
 class ListModel(QAbstractListModel):
 
-    #__fonctions = list[FonctionModel]
-
     def __init__(self,fonctions: list = None):
         super().__init__()
         self.__fonctions = fonctions if fonctions is not None else []
@@ -32,3 +30,6 @@ class ListModel(QAbstractListModel):
                 self.beginRemoveRows(QModelIndex(), index, index)
                 self.__fonctions.pop(index)
                 self.endRemoveRows()
+
+    def get_items(self) -> list:
+        return self.__fonctions

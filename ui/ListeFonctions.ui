@@ -25,7 +25,7 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QPushButton" name="enregristrerPushButton">
+       <widget class="QPushButton" name="enregistrerPushButton">
         <property name="text">
          <string>Enregistrer</string>
         </property>

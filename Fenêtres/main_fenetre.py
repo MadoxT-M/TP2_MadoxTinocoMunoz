@@ -1,13 +1,14 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel
 from PyQt6.uic import loadUi
 
 from Fenêtres.matplotlib_canvas import MPLCanvas
+from Fenêtres.secondary_view import SecondaryFenetre
 from Models.fonction_model import FonctionModel
 
 
 class MainFenentre(QMainWindow):
-
-    fonctionLineEdit:QLineEdit
+    fonctionComboBox: QComboBox
     xMinimumDoubleSpinBox: QDoubleSpinBox
     xMaximumDoubleSpinBox: QDoubleSpinBox
     matplotlibVLayout:QVBoxLayout
@@ -29,7 +30,7 @@ class MainFenentre(QMainWindow):
         self.__model = FonctionModel()
         self.__canvas = MPLCanvas(self.__model)
         self.matplotlibVLayout.addWidget(self.__canvas)
-        self.fonctionLineEdit.editingFinished.connect(self.__fonction_modifiee)
+        self.fonctionComboBox.currentTextChanged.connect(self.__fonction_modifiee)
         self.xMinimumDoubleSpinBox.editingFinished.connect(self.__x_minimum_modifiee)
         self.xMaximumDoubleSpinBox.editingFinished.connect(self.__x_maximum_modifiee)
         self.__model.fonctionchanged.connect(self.__canvas.dessiner)
@@ -40,8 +41,12 @@ class MainFenentre(QMainWindow):
         self.tangeanteHorizontalSlider.valueChanged.connect(self.__slider_modifie)
         self.__model.curseurchanged.connect(self.mettre_affichage_tangente)
 
-    def __fonction_modifiee(self):
-        self.__model.fonction = self.fonctionLineEdit.text()
+        self.secondary_fenetre = SecondaryFenetre()
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.secondary_fenetre)
+        self.secondary_fenetre.fonctionsEnregistrees.connect(self.remplir_combobox)
+
+    def __fonction_modifiee(self, texte: str):
+        self.__model.fonction = texte
 
     def __x_minimum_modifiee(self):
         valeur_str = self.xMinimumDoubleSpinBox.value()
@@ -66,3 +71,7 @@ class MainFenentre(QMainWindow):
         y = self.__model.eval_fonction(x)
         texte = f"x = {x:.2f}, y = {y:.2f}"
         self.pointTangenceLabel2.setText(texte)
+
+    def remplir_combobox(self, liste_fonctions: list):
+        self.fonctionComboBox.clear()
+        self.fonctionComboBox.addItems(liste_fonctions)
