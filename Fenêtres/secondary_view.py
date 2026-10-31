@@ -1,8 +1,6 @@
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QDockWidget, QPushButton, QLineEdit, QListView
 from PyQt6.uic import loadUi
-
-from Models.fonction_model import FonctionModel
 from Models.liste_model import ListModel
 
 

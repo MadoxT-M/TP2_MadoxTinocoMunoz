@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel
+from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel, QCheckBox
 from PyQt6.uic import loadUi
 
 from Fenêtres.matplotlib_canvas import MPLCanvas
@@ -13,8 +13,13 @@ class MainFenentre(QMainWindow):
     xMaximumDoubleSpinBox: QDoubleSpinBox
     matplotlibVLayout:QVBoxLayout
     tangeanteHorizontalSlider : QSlider
-    fonctionDeriveeLabel2:  QLabel
-    pointTangenceLabel2 : QLabel
+    grilleCheckBox: QCheckBox
+    fonctionDeriveeLabel: QLabel
+    # fonctionDeriveeLabel2:  QLabel
+    fonctionTangenceLineEdit : QLineEdit
+    tauxVariationLineEdit: QLineEdit
+
+
 
     __model = FonctionModel
 
@@ -26,7 +31,6 @@ class MainFenentre(QMainWindow):
         self.xMaximumDoubleSpinBox.setMinimum(-9999999)
         self.xMaximumDoubleSpinBox.setMaximum(99999999)
         self.xMaximumDoubleSpinBox.setValue(10.0)
-
         self.__model = FonctionModel()
         self.__canvas = MPLCanvas(self.__model)
         self.matplotlibVLayout.addWidget(self.__canvas)
@@ -58,7 +62,7 @@ class MainFenentre(QMainWindow):
 
     def __mettre_derivee_label(self):
         texte_derivee = self.__model.derivee_str
-        self.fonctionDeriveeLabel2.setText(texte_derivee)
+        self.fonctionDeriveeLabel.setText(texte_derivee)
 
     def __slider_modifie(self, valeur_slider):
         xmin = self.__model.xmin
@@ -70,7 +74,7 @@ class MainFenentre(QMainWindow):
         x = self.__model.x_curseur
         y = self.__model.eval_fonction(x)
         texte = f"x = {x:.2f}, y = {y:.2f}"
-        self.pointTangenceLabel2.setText(texte)
+        self.fonctionTangenceLineEdit.setText(texte)
 
     def remplir_combobox(self, liste_fonctions: list):
         self.fonctionComboBox.clear()

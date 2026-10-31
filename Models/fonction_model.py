@@ -117,3 +117,12 @@ class FonctionModel(QObject):
         y = sp.sympify(self.__fonction)
         y_prime = sp.diff(y, x)
         return float(sp.lambdify(x, y_prime, 'numpy')(x_val))
+
+    @property
+    def showgrille(self):
+        return self.__showgrille
+
+    @showgrille.setter
+    def showgrille(self, value):
+        self.__showgrille = value
+
