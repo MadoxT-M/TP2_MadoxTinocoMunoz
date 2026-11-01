@@ -1,5 +1,6 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel, QCheckBox
+from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel, QCheckBox, \
+    QFileDialog, QMenuBar, QMenu
 from PyQt6.uic import loadUi
 from sympy import true
 
@@ -18,6 +19,7 @@ class MainFenentre(QMainWindow):
     fonctionDeriveeLabel: QLabel
     fonctionTangenceLineEdit : QLineEdit
     tauxVariationLineEdit: QLineEdit
+    menuFichier: QMenu
 
 
 
@@ -26,6 +28,8 @@ class MainFenentre(QMainWindow):
     def __init__(self):
         super().__init__()
         loadUi("ui/FonctionMainWindow.ui",self)
+        self.actionExporterPdf = self.menuFichier.addAction("Exporter en PDF")
+        self.actionExporterPdf.triggered.connect(self.exporter_pdf)
 
         self.xMinimumDoubleSpinBox.setMinimum(-9999999)
         self.xMinimumDoubleSpinBox.setMaximum(99999999)
@@ -113,3 +117,17 @@ class MainFenentre(QMainWindow):
         index = self.fonctionComboBox.findText(premiere)
         if index >= 0:
             self.fonctionComboBox.setCurrentIndex(index)
+
+    def exporter_pdf(self):
+        fichier, _ = QFileDialog.getSaveFileName(
+            self,
+            "Exporter en PDF",
+            "graphique.pdf",
+            "Fichiers PDF (*.pdf)"
+        )
+
+        if fichier:
+            try:
+                self.__canvas.figure.savefig(fichier, format='pdf', bbox_inches='tight')
+            except Exception as e:
+                print(f"Erreur lors de l'export PDF : {e}")
