@@ -1,3 +1,6 @@
+###Utilisation de IA sur la ligne #30 pour créer le string qui vérifie les differentes caracteres
+
+
 from PyQt6.QtCore import pyqtSignal, QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtWidgets import QDockWidget, QPushButton, QLineEdit, QListView
