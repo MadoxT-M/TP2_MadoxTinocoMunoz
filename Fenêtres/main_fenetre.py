@@ -26,17 +26,23 @@ class MainFenentre(QMainWindow):
     def __init__(self):
         super().__init__()
         loadUi("ui/FonctionMainWindow.ui",self)
+
         self.xMinimumDoubleSpinBox.setMinimum(-9999999)
         self.xMinimumDoubleSpinBox.setMaximum(99999999)
         self.xMaximumDoubleSpinBox.setMinimum(-9999999)
         self.xMaximumDoubleSpinBox.setMaximum(99999999)
+        self.xMinimumDoubleSpinBox.setValue(0.0)
         self.xMaximumDoubleSpinBox.setValue(10.0)
+        self.xMaximumDoubleSpinBox.setMinimum(self.xMinimumDoubleSpinBox.value())
+        self.xMinimumDoubleSpinBox.setMaximum(self.xMaximumDoubleSpinBox.value())
+        self.xMinimumDoubleSpinBox.editingFinished.connect(self.__x_minimum_modifiee)
+        self.xMaximumDoubleSpinBox.editingFinished.connect(self.__x_maximum_modifiee)
+
         self.__model = FonctionModel()
         self.__canvas = MPLCanvas(self.__model)
         self.matplotlibVLayout.addWidget(self.__canvas)
+
         self.fonctionComboBox.currentTextChanged.connect(self.__fonction_modifiee)
-        self.xMinimumDoubleSpinBox.editingFinished.connect(self.__x_minimum_modifiee)
-        self.xMaximumDoubleSpinBox.editingFinished.connect(self.__x_maximum_modifiee)
         self.__model.fonctionchanged.connect(self.__canvas.dessiner)
         self.__model.fonctionchanged.connect(self.__mettre_derivee_label)
         self.tangeanteHorizontalSlider.setMinimum(0)
@@ -57,12 +63,25 @@ class MainFenentre(QMainWindow):
         self.__model.fonction = texte
 
     def __x_minimum_modifiee(self):
-        valeur_str = self.xMinimumDoubleSpinBox.value()
-        self.__model.xmin = float(valeur_str)
+        valeur = self.xMinimumDoubleSpinBox.value()
+        max_actuel = self.xMaximumDoubleSpinBox.value()
+        if valeur >= max_actuel:
+            valeur = max_actuel - 0.1
+            self.xMinimumDoubleSpinBox.setValue(valeur)
+
+        self.xMaximumDoubleSpinBox.setMinimum(valeur)
+        self.__model.xmin = float(valeur)
+
 
     def __x_maximum_modifiee(self):
-        valeur_str = self.xMaximumDoubleSpinBox.value()
-        self.__model.xmax = float(valeur_str)
+        valeur = self.xMaximumDoubleSpinBox.value()
+        min_actuel = self.xMinimumDoubleSpinBox.value()
+        if valeur <= min_actuel:
+            valeur = min_actuel + 0.1
+            self.xMaximumDoubleSpinBox.setValue(valeur)
+
+        self.xMinimumDoubleSpinBox.setMaximum(valeur)
+        self.__model.xmax = float(valeur)
 
     def __mettre_derivee_label(self):
         texte_derivee = self.__model.derivee_str
