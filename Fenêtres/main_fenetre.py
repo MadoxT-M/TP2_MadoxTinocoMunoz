@@ -29,6 +29,8 @@ class MainFenentre(QMainWindow):
     def __init__(self):
         super().__init__()
         loadUi("ui/FonctionMainWindow.ui",self)
+
+        ##Creation des actions dans les QMenu
         self.actionExporterPdf = self.menuFichier.addAction("Exporter en PDF")
         self.actionExporterPdf.triggered.connect(self.exporter_pdf)
 
@@ -41,6 +43,7 @@ class MainFenentre(QMainWindow):
         self.actionCouleurTangente = self.menuCouleurs.addAction("Couleur de la tangente")
         self.actionCouleurTangente.triggered.connect(self.changer_couleur_tangente)
 
+        ##Fonctionnalité des bornes du graphique
         self.xMinimumDoubleSpinBox.setMinimum(-9999999)
         self.xMinimumDoubleSpinBox.setMaximum(99999999)
         self.xMaximumDoubleSpinBox.setMinimum(-9999999)
@@ -56,7 +59,9 @@ class MainFenentre(QMainWindow):
         self.__canvas = MPLCanvas(self.__model)
         self.matplotlibVLayout.addWidget(self.__canvas)
 
+        ##Dessin et fonctionnalités du graphique
         self.fonctionComboBox.currentTextChanged.connect(self.__fonction_modifiee)
+        self.remplir_combobox(self.secondary_fenetre.get_items())
         self.__model.fonctionchanged.connect(self.__canvas.dessiner)
         self.__model.fonctionchanged.connect(self.__mettre_derivee_label)
         self.tangeanteHorizontalSlider.setMinimum(0)
@@ -66,12 +71,11 @@ class MainFenentre(QMainWindow):
         self.__model.curseurchanged.connect(self.mettre_affichage_tangente)
         self.grilleCheckBox.toggled.connect(self.__grille_modifiee)
 
-
+        #Fonctionnalité du dockWidget
         self.secondary_fenetre = SecondaryFenetre()
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.secondary_fenetre)
         self.secondary_fenetre.fonctionsEnregistrees.connect(self.remplir_combobox)
 
-        self.remplir_combobox(self.secondary_fenetre.get_items())
 
     def __fonction_modifiee(self, texte: str):
         self.__model.fonction = texte

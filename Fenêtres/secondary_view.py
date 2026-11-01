@@ -22,10 +22,14 @@ class SecondaryFenetre(QDockWidget):
         loadUi("ui/ListeFonctions.ui",self)
         self.__model = ListModel(list(self.fonctions_initiales(self)))
         self.fonctionListView.setModel(self.__model)
+
+        ##Validateur
         regex = QRegularExpression(r"^[0-9x\s\+\-\*\/\^\(\)\.a-zA-Z]*$")
         validator = QRegularExpressionValidator(regex, self.ajouterFonctionLineEdit)
         self.ajouterFonctionLineEdit.setValidator(validator)
-        self.ajouterFonctionLineEdit.textChanged.connect(self.__verifier_saisie_temps_reel)
+        self.ajouterFonctionLineEdit.textChanged.connect(self.__verifier_texte_temps_reel)
+
+        ##Fonctionnalité des QPushButtons
         self.ajouterPushButton.clicked.connect(self.__ajouter_fonction)
         self.supprimerPushButton.clicked.connect(self.__supprimer_fonction)
         self.enregistrerPushButton.clicked.connect(self.__enregistrer_fonction)
@@ -35,7 +39,7 @@ class SecondaryFenetre(QDockWidget):
     def fonctions_initiales(self):
         return ["x**2", "sin(x)", "cos(x)"]
 
-    def __verifier_saisie_temps_reel(self, texte: str):
+    def __verifier_texte_temps_reel(self, texte: str):
         texte = texte.strip()
         if not texte:
             self.ajouterFonctionLineEdit.setStyleSheet("")
