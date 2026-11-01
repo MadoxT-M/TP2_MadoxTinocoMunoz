@@ -24,14 +24,18 @@ class MPLCanvas(FigureCanvasQTAgg):
         x_fonction, y_fonction = self.__model.fonction
         x_derivee, y_derivee = self.__model.derivee
 
+        c_func = self.__model.couleur_fonction.name()
+        c_deriv = self.__model.couleur_derivee.name()
+        c_tang = self.__model.couleur_tangente.name()
+
         # Graphique 1 : Fonction
         self.__ax[0].clear()
         self.__ax[0].set_title("Fonction et Tangente")
         if len(x_fonction) > 0:
-            self.__ax[0].plot(x_fonction, y_fonction, label="Fonction f(x)", color='blue')
+            self.__ax[0].plot(x_fonction, y_fonction, label="Fonction f(x)", color=c_func)
 
-        self.point_func, = self.__ax[0].plot([], [], 'bo')
-        self.tangente_line, = self.__ax[0].plot([], [], 'blue')
+        self.point_func, = self.__ax[0].plot([], [], marker ='o', color=c_func)
+        self.tangente_line, = self.__ax[0].plot([], [], c_tang)
         if self.__model.showgrille:
             self.__ax[0].grid(True, linestyle='-', alpha=0.6)
         else:
@@ -41,9 +45,9 @@ class MPLCanvas(FigureCanvasQTAgg):
         self.__ax[1].clear()
         self.__ax[1].set_title("Dérivée")
         if len(x_derivee) > 0:
-            self.__ax[1].plot(x_derivee, y_derivee, label="Dérivée f(x)' ", color='blue')
+            self.__ax[1].plot(x_derivee, y_derivee, label="Dérivée f(x)' ", color=c_deriv)
 
-        self.point_deriv, = self.__ax[1].plot([], [], 'bo')
+        self.point_deriv, = self.__ax[1].plot([], [], marker='o', color=c_deriv)
         if self.__model.showgrille:
             self.__ax[1].grid(True, linestyle='--', alpha=0.6)
         else:

@@ -1,6 +1,6 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel, QCheckBox, \
-    QFileDialog, QMenuBar, QMenu
+    QFileDialog, QMenuBar, QMenu, QColorDialog
 from PyQt6.uic import loadUi
 from sympy import true
 
@@ -20,6 +20,7 @@ class MainFenentre(QMainWindow):
     fonctionTangenceLineEdit : QLineEdit
     tauxVariationLineEdit: QLineEdit
     menuFichier: QMenu
+    menuCouleurs: QMenu
 
 
 
@@ -30,6 +31,15 @@ class MainFenentre(QMainWindow):
         loadUi("ui/FonctionMainWindow.ui",self)
         self.actionExporterPdf = self.menuFichier.addAction("Exporter en PDF")
         self.actionExporterPdf.triggered.connect(self.exporter_pdf)
+
+        self.actionCouleurFonction = self.menuCouleurs.addAction("Couleur de la fonction")
+        self.actionCouleurFonction.triggered.connect(self.changer_couleur_fonction)
+
+        self.actionCouleurDerivee = self.menuCouleurs.addAction("Couleur de la dérivée")
+        self.actionCouleurDerivee.triggered.connect(self.changer_couleur_derivee)
+
+        self.actionCouleurTangente = self.menuCouleurs.addAction("Couleur de la tangente")
+        self.actionCouleurTangente.triggered.connect(self.changer_couleur_tangente)
 
         self.xMinimumDoubleSpinBox.setMinimum(-9999999)
         self.xMinimumDoubleSpinBox.setMaximum(99999999)
@@ -131,3 +141,18 @@ class MainFenentre(QMainWindow):
                 self.__canvas.figure.savefig(fichier, format='pdf', bbox_inches='tight')
             except Exception as e:
                 print(f"Erreur lors de l'export PDF : {e}")
+
+    def changer_couleur_fonction(self):
+        couleur = QColorDialog.getColor()
+        if couleur.isValid():
+            self.__model.couleur_fonction = couleur
+
+    def changer_couleur_derivee(self):
+        couleur = QColorDialog.getColor()
+        if couleur.isValid():
+            self.__model.couleur_derivee = couleur
+
+    def changer_couleur_tangente(self):
+        couleur = QColorDialog.getColor()
+        if couleur.isValid():
+            self.__model.couleur_tangente = couleur

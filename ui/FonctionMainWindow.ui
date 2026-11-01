@@ -169,14 +169,14 @@
      <string>Fichier</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuView">
+   <widget class="QMenu" name="menuCouleurs">
     <property name="title">
-     <string>View</string>
+     <string>Couleurs</string>
     </property>
     <addaction name="separator"/>
    </widget>
    <addaction name="menuFichier"/>
-   <addaction name="menuView"/>
+   <addaction name="menuCouleurs"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

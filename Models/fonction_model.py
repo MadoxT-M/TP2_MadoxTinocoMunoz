@@ -19,6 +19,36 @@ class FonctionModel(QObject):
         self.__xmax: float= 10
         self.__x_curseur: float = 5.0
         self.__showgrille: bool = False
+        self.__couleur_fonction = QColor('blue')
+        self.__couleur_derivee = QColor('blue')
+        self.__couleur_tangente = QColor('blue')
+
+    @property
+    def couleur_fonction(self):
+        return self.__couleur_fonction
+
+    @couleur_fonction.setter
+    def couleur_fonction(self, couleur: QColor):
+        self.__couleur_fonction = couleur
+        self.fonctionchanged.emit()
+
+    @property
+    def couleur_derivee(self):
+        return self.__couleur_derivee
+
+    @couleur_derivee.setter
+    def couleur_derivee(self, couleur: QColor):
+        self.__couleur_derivee = couleur
+        self.fonctionchanged.emit()
+
+    @property
+    def couleur_tangente(self):
+        return self.__couleur_tangente
+
+    @couleur_tangente.setter
+    def couleur_tangente(self, couleur : QColor):
+        self.__couleur_tangente = couleur
+        self.fonctionchanged.emit()
 
     @property
     def fonction(self):
@@ -128,4 +158,3 @@ class FonctionModel(QObject):
         if self.__showgrille != value:
                 self.__showgrille = value
                 self.grillechanged.emit()
-
