@@ -1,6 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QComboBox, QDoubleSpinBox, QMainWindow, QLineEdit, QVBoxLayout, QSlider, QLabel, QCheckBox
 from PyQt6.uic import loadUi
+from sympy import true
 
 from Fenêtres.matplotlib_canvas import MPLCanvas
 from Fenêtres.secondary_view import SecondaryFenetre
@@ -43,6 +44,8 @@ class MainFenentre(QMainWindow):
         self.tangeanteHorizontalSlider.setValue(50)
         self.tangeanteHorizontalSlider.valueChanged.connect(self.__slider_modifie)
         self.__model.curseurchanged.connect(self.mettre_affichage_tangente)
+        self.grilleCheckBox.toggled.connect(self.__grille_modifiee)
+
 
         self.secondary_fenetre = SecondaryFenetre()
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.secondary_fenetre)
@@ -80,6 +83,9 @@ class MainFenentre(QMainWindow):
         self.fonctionTangenceLineEdit.setText(texte)
         texte_taux = f"{taux_variation:.2f}"
         self.tauxVariationLineEdit.setText(texte_taux)
+
+    def __grille_modifiee(self, checked: bool):
+        self.__model.showgrille = checked
 
     def remplir_combobox(self, liste_fonctions: list):
         premiere = self.fonctionComboBox.currentText()

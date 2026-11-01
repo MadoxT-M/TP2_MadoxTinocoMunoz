@@ -17,6 +17,7 @@ class MPLCanvas(FigureCanvasQTAgg):
 
         self.__model.fonctionchanged.connect(self.dessiner)
         self.__model.curseurchanged.connect(self.mettre_a_jour_curseur)
+        self.__model.grillechanged.connect(self.dessiner)
         self.dessiner()
 
     def dessiner(self):
@@ -31,7 +32,10 @@ class MPLCanvas(FigureCanvasQTAgg):
 
         self.point_func, = self.__ax[0].plot([], [], 'bo')
         self.tangente_line, = self.__ax[0].plot([], [], 'blue')
-        self.__ax[0].grid(True, linestyle='-', alpha=0.6)
+        if self.__model.showgrille:
+            self.__ax[0].grid(True, linestyle='-', alpha=0.6)
+        else:
+            self.__ax[0].grid(False)
 
         # Graphique 2 : Dérivée
         self.__ax[1].clear()
@@ -40,7 +44,10 @@ class MPLCanvas(FigureCanvasQTAgg):
             self.__ax[1].plot(x_derivee, y_derivee, label="Dérivée f(x)' ", color='blue')
 
         self.point_deriv, = self.__ax[1].plot([], [], 'bo')
-        self.__ax[1].grid(True, linestyle='--', alpha=0.6)
+        if self.__model.showgrille:
+            self.__ax[1].grid(True, linestyle='--', alpha=0.6)
+        else:
+            self.__ax[1].grid(False)
 
         self.__fig.tight_layout()
         self.__fig.subplots_adjust(top=0.85, wspace=0.3)

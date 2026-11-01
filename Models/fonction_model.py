@@ -7,6 +7,7 @@ import numpy as np
 class FonctionModel(QObject):
     fonctionchanged = pyqtSignal()
     curseurchanged = pyqtSignal()
+    grillechanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -124,5 +125,7 @@ class FonctionModel(QObject):
 
     @showgrille.setter
     def showgrille(self, value):
-        self.__showgrille = value
+        if self.__showgrille != value:
+                self.__showgrille = value
+                self.grillechanged.emit()
 

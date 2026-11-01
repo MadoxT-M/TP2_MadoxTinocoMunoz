@@ -47,9 +47,13 @@ class ListModel(QAbstractListModel):
     def charger_json(self):
         try:
             with open(self.__fichier_json, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                if isinstance(data, list):
-                    self.__fonctions = data
+                content = f.read().strip()
+                if not content:
+                    self.sauvegarder_json()
+                else:
+                    data = json.loads(content)
+                    if isinstance(data, list):
+                        self.__fonctions = data
         except FileNotFoundError:
             self.sauvegarder_json()
         except Exception as e:
