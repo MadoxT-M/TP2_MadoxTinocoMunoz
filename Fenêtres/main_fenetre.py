@@ -15,7 +15,6 @@ class MainFenentre(QMainWindow):
     tangeanteHorizontalSlider : QSlider
     grilleCheckBox: QCheckBox
     fonctionDeriveeLabel: QLabel
-    # fonctionDeriveeLabel2:  QLabel
     fonctionTangenceLineEdit : QLineEdit
     tauxVariationLineEdit: QLineEdit
 
@@ -49,6 +48,8 @@ class MainFenentre(QMainWindow):
         self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.secondary_fenetre)
         self.secondary_fenetre.fonctionsEnregistrees.connect(self.remplir_combobox)
 
+        self.remplir_combobox(self.secondary_fenetre.get_items())
+
     def __fonction_modifiee(self, texte: str):
         self.__model.fonction = texte
 
@@ -73,9 +74,17 @@ class MainFenentre(QMainWindow):
     def mettre_affichage_tangente(self):
         x = self.__model.x_curseur
         y = self.__model.eval_fonction(x)
+        taux_variation = self.__model.eval_derivee(x)
+
         texte = f"x = {x:.2f}, y = {y:.2f}"
         self.fonctionTangenceLineEdit.setText(texte)
+        texte_taux = f"{taux_variation:.2f}"
+        self.tauxVariationLineEdit.setText(texte_taux)
 
     def remplir_combobox(self, liste_fonctions: list):
+        premiere = self.fonctionComboBox.currentText()
         self.fonctionComboBox.clear()
         self.fonctionComboBox.addItems(liste_fonctions)
+        index = self.fonctionComboBox.findText(premiere)
+        if index >= 0:
+            self.fonctionComboBox.setCurrentIndex(index)

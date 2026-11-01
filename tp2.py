@@ -3,7 +3,6 @@ import traceback
 
 from PyQt6.QtWidgets import QApplication
 from Fenêtres.main_fenetre import MainFenentre
-from Fenêtres.secondary_view import SecondaryFenetre
 
 
 def qt_exception_hook(exctype, value, tb):

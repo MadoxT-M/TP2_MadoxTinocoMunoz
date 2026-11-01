@@ -1,13 +1,16 @@
-from PyQt6.QtCore import QAbstractListModel, QModelIndex, Qt
+import json
 
+from PyQt6.QtCore import QAbstractListModel, QModelIndex, Qt
 from Models.fonction_model import FonctionModel
 
 
 class ListModel(QAbstractListModel):
 
-    def __init__(self,fonctions: list = None):
+    def __init__(self,fonctions: list = None, fichier_json: str = "fonctions.json"):
         super().__init__()
+        self.__fichier_json = fichier_json
         self.__fonctions = fonctions if fonctions is not None else []
+        self.charger_json()
 
     def rowCount(self, parent=QModelIndex()):
         return len(self.__fonctions)
@@ -33,3 +36,21 @@ class ListModel(QAbstractListModel):
 
     def get_items(self) -> list:
         return self.__fonctions
+
+    def sauvegarder_json(self):
+        try:
+            with open(self.__fichier_json, 'w', encoding='utf-8') as fonction:
+                json.dump(self.__fonctions, fonction, ensure_ascii=False, indent=4)
+        except Exception as e:
+            print(f"Erreur lors de la sauvegarde JSON : {e}")
+
+    def charger_json(self):
+        try:
+            with open(self.__fichier_json, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    self.__fonctions = data
+        except FileNotFoundError:
+            self.sauvegarder_json()
+        except Exception as e:
+            print(f"Erreur lors du chargement JSON : {e}")

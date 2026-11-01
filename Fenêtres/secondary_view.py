@@ -23,6 +23,7 @@ class SecondaryFenetre(QDockWidget):
         self.ajouterPushButton.clicked.connect(self.__ajouter_fonction)
         self.supprimerPushButton.clicked.connect(self.__supprimer_fonction)
         self.enregistrerPushButton.clicked.connect(self.__enregistrer_fonction)
+        self.__enregistrer_fonction()
 
     @staticmethod
     def fonctions_initiales(self):
@@ -38,6 +39,9 @@ class SecondaryFenetre(QDockWidget):
             index_selectionne = self.fonctionListView.currentIndex()
             if index_selectionne.isValid():
                 self.__model.remove_item(index_selectionne.row())
+
+    def get_items(self) -> list:
+        return self.__model.get_items()
 
     def __enregistrer_fonction(self):
         fonctions = self.__model.get_items()
